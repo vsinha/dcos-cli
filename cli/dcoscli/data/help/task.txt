@@ -7,17 +7,29 @@ Usage:
     dcos task ls [--long] <task> [<path>]
 
 Options:
-    -h, --help    Show this screen
-    --info        Show a short description of this subcommand
-    --completed   Include completed tasks as well
-    --follow      Print data as the file grows
-    --json        Print json-formatted tasks
-    --lines=N     Print the last N lines [default: 10]
-    --long        Use a long listing format
-    --version     Show version
+    -h, --help    Show this screen.
+    --info        Show a short description of this subcommand.
+    --version     Show version.
+
+    --completed   Include completed DCOS tasks.
+
+    --follow      Dynamically display new log output as it is added.
+    --json        Print task data in JSON format.
+    --lines=N     Print the last N lines. [Default: 10]
+    --long        Use a long listing format.
+
 
 Positional Arguments:
-    <file>        Print this file. [default: stdout]
+    <file>        Read logs from an existing file. [Default: stdout]
     <path>        List this directory. [default: '.']
-    <task>        Only match tasks whose ID matches <task>.  <task> may be
-                  a substring of the ID, or a unix glob pattern.
+    <task>        The task ID. This can be the full task ID, a partial task
+                  ID, or a regular expression. If you specify a partial task ID,
+                  logs for all task names that contain the partial task ID are
+                  displayed. For example, if you have tasks named `spark1`,
+                  `spark2`, and `spark3`, then the command `dcos task log spark`
+                  will display task logs for all three of these tasks; you do
+                  not need to use wildcards. If you use a regular expression,
+                  you must enclose the task ID in double quotation marks and
+                  include an asterisk at the end of the task ID. For example,
+                  `dcos task log "spark[13]*"` will display information for
+                  tasks `spark1` and `spark3`, but not `spark2`.

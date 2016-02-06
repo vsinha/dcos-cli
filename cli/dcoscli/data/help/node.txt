@@ -11,19 +11,32 @@ Usage:
                   (--master | --slave=<slave-id>)
 
 Options:
-    -h, --help              Show this screen
-    --info                  Show a short description of this subcommand
-    --json                  Print json-formatted nodes
-    --follow                Print data as the file grows
-    --lines=N               Print the last N lines [default: 10]
-    --master                Access the leading master
-    --master-proxy          Proxy the SSH connection through a master node. This can be useful when
-                            accessing DCOS from a separate network. For example, in the default AWS
-                            configuration, the private slaves are unreachable from the public
-                            internet. You can access them using this option, which will first hop
-                            from the publicly available master.
-    --slave=<slave-id>      Access the slave with the provided ID
-    --option SSHOPT=VAL     SSH option (see `man ssh_config`)
-    --config-file=<path>    Path to SSH config file
-    --user=<user>           SSH user [default: core]
-    --version               Show version
+    -h, --help              Show this screen.
+    --info                  Show a short description of this subcommand.
+    --version               Show version.
+    --json                  Print node information in JSON format. This includes
+                            the hostname, resource offers, task information, and
+                            so on.
+
+    --follow                Display new log output as information is added.
+    --lines=N               Show the last N lines of log output. [Default: 10]
+
+    --master                Perform operations on the leading master.
+
+    --master-proxy          Proxy the SSH connection through a master node
+                            (--master-proxy). By default, `dcos node ssh`
+                            connects to the private IP of the node, which is
+                            only accessible from hosts within the same
+                            network, so you must use the --master-proxy
+                            option to access your cluster from an outside
+                            network. For example, in the default AWS
+                            configuration, the private slaves are unreachable
+                            from the public Internet, but you can SSH to them
+                            using this option, which will proxy the SSH
+                            connection through the publicly reachable master.
+
+    --slave=<agent-id>      Access the agent node with the provided <agent-id>.
+    --option SSHOPT=VAL     SSH options (see `man ssh_config`).
+    --config-file=<path>    Path to the SSH configuration file.
+    --user=<user>           SSH username. [Default: core]
+

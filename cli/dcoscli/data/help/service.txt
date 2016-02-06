@@ -8,34 +8,37 @@ Usage:
     dcos service shutdown <service-id>
 
 Options:
-    -h, --help                  Show this screen
+    -h, --help                  Show this screen.
+    --info                      Show a short description of this subcommand.
+    --version                   Show version.
 
     --completed                 Show completed services in addition to active
                                 ones. Completed services are those that have
-                                been disconnected from master, and have reached
+                                been disconnected from master and have reached
                                 their failover timeout, or have been explicitly
                                 shutdown via the /shutdown endpoint.
 
     --inactive                  Show inactive services in addition to active
                                 ones. Inactive services are those that have
-                                been disconnected from master, but haven't yet
+                                been disconnected from master, but have not yet
                                 reached their failover timeout.
 
-    --info                      Show a short description of this subcommand
+    --follow                    Dynamically display new log output as it is
+                                added.
 
-    --follow                    Print data as the file grows
+    --json                      Print node information in JSON format. This
+                                includes the hostname, resource offers, task
+                                information, and so on.
 
-    --json                      Print json-formatted services
+    --lines=N                   Show the last N lines of log output.
+                                [Default: 10]
 
-    --lines=N                   Print the last N lines [default: 10]
-
-    --ssh-config-file=<path>    Path to SSH config file.  Used to access
-                                marathon logs.
-
-    --version                   Show version
+    --ssh-config-file=<path>    Path to the SSH configuration file. This option
+                                is used to access marathon logs.
 
 Positional Arguments:
-    <file>                      Output this file. [default: stdout]
+    <file>                      Read logs from an existing file.
+                                [Default: stdout]
 
     <service>                   The DCOS Service name.
 

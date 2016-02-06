@@ -22,54 +22,41 @@ Usage:
     dcos package update [--validate]
 
 Options:
-    --all
-        Apply the operation to all matching packages
 
-    --app
-        Apply the operation only to the package's Marathon application
+    -h, --help            Show this screen.
+    --info                Show a short description of this subcommand.
+    --version             Show version.
 
-    --app-id=<app-id>
-        The application id
+    --all                 Apply the operation to all matching packages
 
-    --cli
-        Apply the operation only to the package's CLI command
+    --app                 Apply the operation only to the package's Marathon
+                          application.
 
-    --config
-        Print the package's config.json, which contains the configurable
-        properties for marathon.json and command.json
+    --app-id=<app-id>     The desired application's application id.
 
-    -h, --help
-        Show this screen
+    --cli                 Apply the operation only to the package's CLI command.
 
-    --info
-        Show a short description of this subcommand
+    --config              Print the package's config.json, which contains the
+                          configurable properties for marathon.json and
+                          command.json.
 
-    --options=<file>
-        Path to a JSON file containing package installation options
+    --options=<file>      Path to a JSON file containing package installation
+                          options.
 
     --package-version=<package_version>
-        Package version to install
+                          Package version to install.
 
-    --package-versions
-        Print all versions for this package
+    --package-versions    Print all versions for this package.
 
-    --render
-        Render the package's marathon.json or command.json template with the
-        values from config.json and --options. If not provided, print the raw
-        templates.
+    --render              Render the package's marathon.json or command.json
+                          template with the values from config.json and
+                          --options. If not provided, print the raw templates.
 
-    --validate
-        Validate package content when updating sources
+    --validate            Validate package content when updating sources.
 
-    --version
-        Show version
-
-    --yes
-        Assume "yes" is the answer to all prompts and run non-interactively
+    --yes                 Assume "yes" is the answer to all prompts and run
+                          non-interactively.
 
 Positional Arguments:
-    <package-name>
-        Name of the DCOS package
-
-    <query>
-        Pattern to use for searching for package
+    <package-name>        Name of the DCOS package.
+    <query>               Pattern to use for searching for package.

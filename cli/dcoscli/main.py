@@ -7,8 +7,8 @@ from subprocess import PIPE, Popen
 import dcoscli
 import docopt
 import pkg_resources
-from dcos import (auth, constants, emitting, errors, http, mesos, subcommand,
-                  util)
+from dcos import (auth, constants, emitting, errors, http, mesos, proxy,
+                  subcommand, util)
 from dcos.errors import DCOSAuthenticationException, DCOSException
 from dcoscli import analytics
 
@@ -53,12 +53,10 @@ def _main():
 
     if not command:
         command = "help"
-
     executable = subcommand.command_executables(command)
 
     cluster_id = None
-    if dcoscli.version != 'SNAPSHOT' and command and \
-            command not in ["config", "help"]:
+    if command not in ["config", "help"]:
         try:
             cluster_id = mesos.DCOSClient().metadata().get('CLUSTER_ID')
         except DCOSAuthenticationException:
@@ -67,12 +65,24 @@ def _main():
             msg = 'Unable to get the cluster_id of the cluster.'
             logger.exception(msg)
 
+    default_subcommands = subcommand.default_subcommands()
+    needs_proxy = False
+    if command not in default_subcommands:
+        proxy_thread = proxy.ProxyThread()
+        proxy_thread.start()
+        os.environ[constants.DCOS_PROXY_PORT] = str(proxy_thread.port())
+        needs_proxy = True
+
     # the call to retrieve cluster_id must happen before we run the subcommand
     # so that if you have auth enabled we don't ask for user/pass multiple
     # times (with the text being out of order) before we can cache the auth
     # token
     subproc = Popen([executable,  command] + args['<args>'],
                     stderr=PIPE)
+
+    if needs_proxy:
+        proxy_thread.proxy.shutdown()
+        os.environ.pop(constants.DCOS_PROXY_PORT)
 
     if dcoscli.version != 'SNAPSHOT':
         return analytics.wait_and_track(subproc, cluster_id)

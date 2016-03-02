@@ -61,6 +61,22 @@ def get_package_commands(package_name):
     return executables
 
 
+def default_subcommands():
+    """List the default dcos cli subcommands
+
+    :returns: list of all the default dcos cli subcommands
+    :rtype: [str]
+    """
+    binpath = util.dcos_bin_path()
+    commands = [
+        noun(os.path.join(binpath, filename))
+        for filename in os.listdir(binpath)
+        if (filename.startswith(constants.DCOS_COMMAND_PREFIX) and
+            _is_executable(os.path.join(binpath, filename)))
+    ]
+    return commands
+
+
 def list_paths():
     """List the real path to executable dcos subcommand programs.
 

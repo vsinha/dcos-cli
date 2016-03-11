@@ -2,6 +2,7 @@ all: env test packages
 
 clean:
 	bin/clean.sh
+	rm -rf dist build
 
 env:
 	bin/env.sh
@@ -14,3 +15,6 @@ doc: env
 
 packages: env
 	bin/packages.sh
+
+pyinstaller: clean env
+	find pyinstaller -type f | xargs -n 1 pyinstaller

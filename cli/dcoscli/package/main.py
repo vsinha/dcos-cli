@@ -787,3 +787,7 @@ def _get_package_manager():
                "#scrollNav-2"
                )
         raise DCOSException(msg)
+
+
+if __name__ == "__main__":
+    main()

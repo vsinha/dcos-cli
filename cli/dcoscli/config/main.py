@@ -155,3 +155,7 @@ def _validate():
 
     emitter.publish("Congratulations, your configuration is valid!")
     return 0
+
+
+if __name__ == "__main__":
+    main()

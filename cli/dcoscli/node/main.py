@@ -1,5 +1,6 @@
 import os
 import subprocess
+import sys
 
 import dcoscli
 import docopt
@@ -24,9 +25,16 @@ def main():
 @decorate_docopt_usage
 def _main():
     util.configure_process_from_environ()
+    argv = sys.argv[1:]
+
+    if '--master' in argv:
+        raise DCOSException(
+            '--master has been deprecated. Please use --leader.'
+        )
 
     args = docopt.docopt(
         _doc(),
+        argv,
         version="dcos-node version {}".format(dcoscli.version))
 
     return cmds.execute(_cmds(), args)

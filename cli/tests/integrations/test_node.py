@@ -141,6 +141,16 @@ def test_node_ssh_master_proxy():
     _node_ssh(['--leader', '--master-proxy'])
 
 
+def test_master_arg_deprecation_notice():
+    stderr = b"--master has been deprecated. Please use --leader.\n"
+    assert_command(['dcos', 'node', 'log', '--master'],
+                   stderr=stderr,
+                   returncode=1)
+    assert_command(['dcos', 'node', 'ssh', '--master'],
+                   stderr=stderr,
+                   returncode=1)
+
+
 def _node_ssh_output(args):
     cli_test_ssh_key_path = os.environ['CLI_TEST_SSH_KEY_PATH']
 
